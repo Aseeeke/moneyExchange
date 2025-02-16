@@ -22,7 +22,7 @@ export type detailsFind = {
 
 export const orderPost = async (details: detailsPost) => {
     const order = {
-        userId: telegramUser.id,
+        userId: String(telegramUser.id),
         name: telegramUser.first_name,
         username: telegramUser.username,
         firstCurrency: details.firstCurrency,
