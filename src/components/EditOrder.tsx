@@ -1,8 +1,11 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {orderEdit} from "../service/orderService.ts";
+import {GlobalContext} from "../App.tsx";
 
 const EditOrder = () => {
     const [amount, setAmount] = useState('');
+    const {currentEditOrder} = useContext(GlobalContext)
 
     const navigate = useNavigate();
 
@@ -11,12 +14,21 @@ const EditOrder = () => {
     }
     const handleSubmit = (e:any) => {
         e.preventDefault();
+        if(currentEditOrder) {
+            orderEdit({
+                amount:  Number(amount),
+                orderId: currentEditOrder._id,
+            })
+        }
+        else {
+            //todo error message
+        }
         //todo
         navigate('/ordersManagement')
     }
 
     return (
-        <div className="h-screen bg-gradient-to-b from-cyan-300 to-blue-500 p-6 flex flex-col items-center justify-around text-white">
+        <div className="h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-red-400 p-6 flex flex-col items-center justify-around text-white">
             <h1 className="text-6xl text-center font-semibold mt-20">Order management</h1>
             <div className="flex flex-col h-1/5 items-center justify-evenly">
                 <h1 className="text-2xl text-center">Type a new amount</h1>

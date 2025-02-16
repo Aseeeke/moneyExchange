@@ -1,20 +1,61 @@
 import AppRouter from "./components/AppRouter.tsx";
 import {createContext, Dispatch, SetStateAction, useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import Loader from "./components/Loader.tsx";
 
-interface CurrencyContextType {
-    currency: string;
-    setCurrency: Dispatch<SetStateAction<string>>;
+export type Currency = 'KZT' | 'KRW' | undefined;
+
+export type userOrder = {
+    currency: Currency;
+    _id: string;
+    amount: number;
+} | undefined;
+
+export type Order = {
+    firstCurrency: Currency,
+    amount: number,
+    _id: string,
+    username: string,
+    userId: string,
+    name: string
+} | undefined
+
+interface GlobalContextType {
+    currency: Currency;
+    setCurrency: Dispatch<SetStateAction<Currency>>;
+    userKRWOrder: userOrder | null,
+    userKZTOrder: userOrder | null,
+    setUserKZTOrder: Dispatch<SetStateAction<userOrder>>;
+    setUserKRWOrder: Dispatch<SetStateAction<userOrder>>;
+    currentEditOrder: userOrder | null,
+    setCurrentEditOrder: Dispatch<SetStateAction<userOrder>>;
+    setLoader: Dispatch<SetStateAction<boolean>>;
+    results: Order[] | undefined;
+    setResults: Dispatch<SetStateAction<[Order]>>;
 }
 
 // Provide a default value that matches the type
-export const CurrencyContext = createContext<CurrencyContextType>({
-    currency: '',
-    setCurrency: () => {}
+export const GlobalContext = createContext<GlobalContextType>({
+    currency: undefined,
+    setCurrency: () => {},
+    userKRWOrder: null,
+    userKZTOrder: null,
+    setUserKRWOrder: () => {},
+    setUserKZTOrder: () => {},
+    currentEditOrder: null,
+    setCurrentEditOrder: () => {},
+    setLoader: () => {},
+    results: undefined,
+    setResults: () => {}
 });
 
 function App() {
-    const [currency, setCurrency] = useState('');
+    const [currency, setCurrency] = useState<Currency>(undefined);
+    const [userKRWOrder, setUserKRWOrder] = useState<userOrder>(undefined);
+    const [userKZTOrder, setUserKZTOrder] = useState<userOrder>(undefined);
+    const [currentEditOrder, setCurrentEditOrder] = useState<userOrder>(undefined);
+    const [loader, setLoader] = useState(false);
+    const [results, setResults] = useState<[Order]>([undefined])
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -39,9 +80,10 @@ function App() {
 
   return (
     <div>
-        <CurrencyContext.Provider value={{currency, setCurrency}}>
+        <GlobalContext.Provider value={{currency, setCurrency, userKRWOrder, setUserKRWOrder, userKZTOrder, setUserKZTOrder, currentEditOrder, setCurrentEditOrder, setLoader, results, setResults}}>
+            {loader && <Loader/>}
             <AppRouter/>
-        </CurrencyContext.Provider>
+        </GlobalContext.Provider>
     </div>
   )
 }
