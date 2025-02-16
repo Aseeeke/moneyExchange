@@ -29,7 +29,7 @@ function App() {
             }
 
         }
-
+        window.Telegram.WebApp.expand();
         window.Telegram.WebApp.onEvent('backButtonClicked', handleBackButtonClick);
         window.Telegram.WebApp.BackButton.show();
         return () => {
