@@ -20,6 +20,7 @@ declare global {
             show: () => void;
             hide: () => void;
         };
+        close: () => void;
     }
 
     interface Telegram {
