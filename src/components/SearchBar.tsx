@@ -4,11 +4,13 @@ import {CurrencyContext} from "../App.tsx";
 
 const SearchBar = () => {
     const [amount, setAmount] = useState('')
+
+    //@ts-expect-error currency to use
     const {currency} = useContext(CurrencyContext);
 
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setAmount(e.target.value);
     }
 

@@ -12,7 +12,7 @@ const CreateOrder = () => {
         navigate('/ordersManagement')
     }
 
-    const handleChange = (e) => {
+    const handleChange = (e: any) => {
         setAmount(e.target.value);
     }
 

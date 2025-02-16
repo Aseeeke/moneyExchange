@@ -3,12 +3,14 @@ import {useNavigate} from "react-router-dom";
 
 
 const UserOrders = () => {
+    //@ts-expect-error yet to use
     const [userKRWOrder, setUserKRWOrder] = useState({});
+    //@ts-expect-error yet to use
     const [userKZTOrder, setUserKZTOrder] = useState({});
 
     const navigate = useNavigate();
 
-    const handleEditClick = (e) => {
+    const handleEditClick = (e:any) => {
         e.preventDefault();
         //todo
         navigate('/editOrder')

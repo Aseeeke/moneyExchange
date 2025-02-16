@@ -6,10 +6,10 @@ const EditOrder = () => {
 
     const navigate = useNavigate();
 
-    const handleChange = (e) => {
+    const handleChange = (e:any) => {
         setAmount(e.target.value);
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
         //todo
         navigate('/ordersManagement')
