@@ -22,7 +22,7 @@ declare global {
         };
         close: () => void;
         expand: () => void;
-        openTelegramLink: () => void;
+        openTelegramLink: (string) => void;
     }
 
     interface Telegram {

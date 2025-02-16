@@ -4,7 +4,7 @@ import { GlobalContext } from "../App";
 const SearchResults = () => {
     const { results } = useContext(GlobalContext);
 
-    const handleUsernameClick = (username) => {
+    const handleUsernameClick = (username: string | undefined) => {
         window.Telegram.WebApp.openTelegramLink(`https://t.me/${username}`)
     }
 
@@ -37,12 +37,12 @@ const SearchResults = () => {
                         >
                             {/* Username */}
                             <p className="text-2xl font-semibold mb-1" onClick={() => {handleUsernameClick(order?.username)}}>
-                                {order.username}
+                                {order?.username}
                             </p>
                             {/* Order Details */}
                             <p className="text-lg">
-                                {order.amount} {order.firstCurrency} →{" "}
-                                {order.firstCurrency === "KZT" ? "KRW" : "KZT"}
+                                {order?.amount} {order?.firstCurrency} →{" "}
+                                {order?.firstCurrency === "KZT" ? "KRW" : "KZT"}
                             </p>
                         </div>
                     ))

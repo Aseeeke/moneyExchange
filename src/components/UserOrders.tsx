@@ -1,6 +1,6 @@
 import {useContext, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
-import {GlobalContext} from "../App.tsx";
+import {GlobalContext, Order} from "../App.tsx";
 import {fetchUserOrders, orderRemove} from "../service/orderService.ts";
 
 
@@ -13,10 +13,10 @@ const UserOrders = () => {
         const fetchOrders = async () => {
             setLoader(true);
             try {
-                const orders = await fetchUserOrders();
+                const orders: Order[] = await fetchUserOrders();
                 console.log("Fetched orders:", orders);
-                setUserKZTOrder(orders.find(order => order.currency === 'KZT'));
-                setUserKRWOrder(orders.find(order => order.currency === 'KRW'));
+                setUserKZTOrder(orders.find(order => order?.firstCurrency === 'KZT'));
+                setUserKRWOrder(orders.find(order => order?.firstCurrency === 'KRW'));
             } catch (error) {
                 console.error("Error fetching orders:", error);
             } finally {

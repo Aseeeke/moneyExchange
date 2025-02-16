@@ -6,7 +6,7 @@ import Loader from "./components/Loader.tsx";
 export type Currency = 'KZT' | 'KRW' | undefined;
 
 export type userOrder = {
-    currency: Currency;
+    firstCurrency: Currency;
     _id: string;
     amount: number;
 } | undefined;
