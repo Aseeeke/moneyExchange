@@ -21,8 +21,13 @@ function App() {
 
     useEffect(() => {
         const handleBackButtonClick = () => {
-            if(location.pathname === '/')
-            navigate(-1);
+            if(location.pathname === '/') {
+                window.Telegram.WebApp.close();
+            }
+            else {
+                navigate(-1);
+            }
+
         }
 
         window.Telegram.WebApp.onEvent('backButtonClicked', handleBackButtonClick);
