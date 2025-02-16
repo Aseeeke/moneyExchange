@@ -10,9 +10,6 @@ const HomePage = () => {
     useEffect(() => {
         const telegramUser = window.Telegram.WebApp.initDataUnsafe.user
         setUser(telegramUser);
-        window.Telegram.WebApp.onEvent('backButtonClicked', () => {
-            window.Telegram.WebApp.close();
-        })
     }, [])
 
 

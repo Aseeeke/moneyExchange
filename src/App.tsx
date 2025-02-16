@@ -1,6 +1,6 @@
 import AppRouter from "./components/AppRouter.tsx";
 import {createContext, Dispatch, SetStateAction, useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 interface CurrencyContextType {
     currency: string;
@@ -17,9 +17,11 @@ function App() {
     const [currency, setCurrency] = useState('');
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const handleBackButtonClick = () => {
+            if(location.pathname === '/')
             navigate(-1);
         }
 
