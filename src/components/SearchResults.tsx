@@ -21,6 +21,7 @@ const SearchResults = () => {
                     results.map((order) => (
                         <div
                             key={order?._id}
+                            onClick={() => {handleUsernameClick(order?.username)}}
                             className="
                 relative
                 bg-white bg-opacity-20
@@ -36,8 +37,8 @@ const SearchResults = () => {
               "
                         >
                             {/* Username */}
-                            <p className="text-2xl font-semibold mb-1" onClick={() => {handleUsernameClick(order?.username)}}>
-                                {order?.username}
+                            <p className="text-2xl font-semibold mb-1" >
+                                @{order?.username}
                             </p>
                             {/* Order Details */}
                             <p className="text-lg">
@@ -56,7 +57,7 @@ const SearchResults = () => {
             {/* Footer / Info */}
             <h3 className="text-center text-2xl mt-12 px-4 text-white drop-shadow">
                 If you are not satisfied with the search results, consider creating
-                your own order ^_^
+                your own order
             </h3>
         </div>
     );

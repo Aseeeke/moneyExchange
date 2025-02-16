@@ -9,7 +9,8 @@ const CreateOrder = () => {
     const {userKZTOrder, userKRWOrder, setUserKZTOrder, setUserKRWOrder, setLoader} = useContext(GlobalContext);
     const navigate = useNavigate();
 
-    const handleClick = async () => {
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
         if(selectedCurrency == 'KZT' && userKZTOrder){
             //todo order already exists
             navigate('/ordersManagement')
@@ -48,23 +49,31 @@ const CreateOrder = () => {
     }
 
     return(
-        <div className="h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-red-400 text-white p-6 ">
+        <div className="h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-red-400 text-white p-6 overflow-hidden">
             <h1 className="text-6xl text-center font-semibold mt-20">Create Order</h1>
             <div className="flex flex-col h-1/2 justify-around mt-10">
-            <div className="flex flex-col items-center justify-around w-full">
-                <h2 className="text-3xl">What do you need?</h2>
-                <div className="flex flex-row  w-full justify-around mt-7 text-xl">
-                    {!userKZTOrder? <button className="bg-white text-black py-2 px-6 rounded-xl"
-                             onClick={() => setSelectedCurrency('KZT')}>KZT to KRW</button> : null}
-                    {!userKRWOrder ? <button className="bg-white text-black py-2 px-6 rounded-xl"
-                                             onClick={() => setSelectedCurrency('KRW')}>KRW to KZT</button> : null}
-                </div>
-            </div>
-                {(selectedCurrency) ? <div className="flex flex-col items-center justify-evenly h-1/2">
-                <h2 className="text-2xl text-center">Type the amount of {selectedCurrency} you want to exchange:</h2>
-                <input type="number" className="bg-white rounded-2xl w-72 py-2 pl-2 border-1 border-black text-black" value={amount} onChange={handleChange}/>
-                <button className="bg-white text-black py-2 px-6 rounded-xl text-xl" onClick={handleClick}>Create order</button>
-            </div> : null}
+                {!selectedCurrency ? <div className="flex flex-col items-center justify-around w-full">
+                    <h2 className="text-3xl">What do you need?</h2>
+                    <div className="flex flex-row  w-full justify-around mt-7 text-xl">
+                        {!userKZTOrder ? <button className="bg-white text-black py-2 px-6 rounded-xl"
+                                                 onClick={() => setSelectedCurrency('KZT')}>KZT to KRW</button> : null}
+                        {!userKRWOrder ? <button className="bg-white text-black py-2 px-6 rounded-xl"
+                                                 onClick={() => setSelectedCurrency('KRW')}>KRW to KZT</button> : null}
+                    </div>
+                </div> : null}
+                {(selectedCurrency) ? <div className="flex flex-col items-center justify-evenly h-2/3 mb-40">
+                    <h2 className="text-2xl text-center">Type the amount of {selectedCurrency} you want to
+                        exchange:</h2>
+                    <form onSubmit={handleSubmit} className="flex flex-col items-center h-1/2">
+                        <input type="number"
+                               className="bg-white rounded-2xl w-72 py-2 pl-2 border-1 border-black text-black"
+                               value={amount} onChange={handleChange}/>
+                        <button className="bg-white text-black py-2 px-6 rounded-xl text-xl mt-4"
+                                type="submit">Create
+                            order
+                        </button>
+                    </form>
+                </div> : null}
             </div>
         </div>
     )

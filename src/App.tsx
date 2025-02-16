@@ -9,16 +9,8 @@ export type userOrder = {
     firstCurrency: Currency;
     _id: string;
     amount: number;
+    username:string;
 } | undefined;
-
-export type Order = {
-    firstCurrency: Currency,
-    amount: number,
-    _id: string,
-    username: string,
-    userId: string,
-    name: string
-} | undefined
 
 interface GlobalContextType {
     currency: Currency;
@@ -30,8 +22,8 @@ interface GlobalContextType {
     currentEditOrder: userOrder | null,
     setCurrentEditOrder: Dispatch<SetStateAction<userOrder>>;
     setLoader: Dispatch<SetStateAction<boolean>>;
-    results: Order[] | undefined;
-    setResults: Dispatch<SetStateAction<[Order]>>;
+    results: userOrder[] | undefined;
+    setResults: Dispatch<SetStateAction<userOrder[]>>;
 }
 
 // Provide a default value that matches the type
@@ -45,7 +37,7 @@ export const GlobalContext = createContext<GlobalContextType>({
     currentEditOrder: null,
     setCurrentEditOrder: () => {},
     setLoader: () => {},
-    results: undefined,
+    results: [],
     setResults: () => {}
 });
 
@@ -55,7 +47,7 @@ function App() {
     const [userKZTOrder, setUserKZTOrder] = useState<userOrder>(undefined);
     const [currentEditOrder, setCurrentEditOrder] = useState<userOrder>(undefined);
     const [loader, setLoader] = useState(false);
-    const [results, setResults] = useState<[Order]>([undefined])
+    const [results, setResults] = useState<userOrder[]>([])
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -66,7 +58,7 @@ function App() {
                 window.Telegram.WebApp.close();
             }
             else {
-                navigate(-1);
+                navigate('/');
             }
 
         }

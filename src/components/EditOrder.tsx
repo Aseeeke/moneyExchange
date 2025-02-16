@@ -5,17 +5,18 @@ import {GlobalContext} from "../App.tsx";
 
 const EditOrder = () => {
     const [amount, setAmount] = useState('');
-    const {currentEditOrder} = useContext(GlobalContext)
+    const {currentEditOrder, setCurrentEditOrder, setLoader} = useContext(GlobalContext)
 
     const navigate = useNavigate();
 
     const handleChange = (e:any) => {
         setAmount(e.target.value);
     }
-    const handleSubmit = (e:any) => {
+    const handleSubmit = async (e:any) => {
         e.preventDefault();
         if(currentEditOrder) {
-            orderEdit({
+            setLoader(true);
+            await orderEdit({
                 amount:  Number(amount),
                 orderId: currentEditOrder._id,
             })
@@ -25,10 +26,11 @@ const EditOrder = () => {
         }
         //todo
         navigate('/ordersManagement')
+        setCurrentEditOrder(undefined);
     }
 
     return (
-        <div className="h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-red-400 p-6 flex flex-col items-center justify-around text-white">
+        <div className="h-screen bg-gradient-to-br from-purple-400 via-pink-400 to-red-400 p-6 flex flex-col items-center justify-around text-white overflow-hidden">
             <h1 className="text-6xl text-center font-semibold mt-20">Order management</h1>
             <div className="flex flex-col h-1/5 items-center justify-evenly">
                 <h1 className="text-2xl text-center">Type a new amount</h1>
