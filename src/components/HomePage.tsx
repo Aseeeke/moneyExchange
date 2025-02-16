@@ -1,15 +1,15 @@
 import {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {CurrencyContext} from "../App.tsx";
+import {TelegramUser} from "../../types";
 
 
 const HomePage = () => {
-    //@ts-expect-error yet to use
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState<TelegramUser | null>(null);
 
     useEffect(() => {
-        //@ts-expect-error yet to use
-        console.log(window.Telegram.WebApp.initDataUnsafe.user)
+        const telegramUser = window.Telegram.WebApp.initDataUnsafe.user
+        setUser(telegramUser);
     }, [])
 
 
@@ -30,7 +30,7 @@ const HomePage = () => {
        <div className="h-screen bg-gradient-to-b from-cyan-300 to-blue-500 text-white p-6 flex flex-col items-center">
            <div className="flex flex-col h-1/3 justify-around mt-8">
            <h1 className="text-6xl text-center font-semibold ">Money Exchange</h1>
-           <h1 className="text-5xl text-center ">Hello, !</h1>
+           <h1 className="text-5xl text-center ">Hello, {user?.username}!</h1>
            </div>
            <div className="mt-5 w-full text-center">
                <h1 className="text-4xl">What do you need?</h1>

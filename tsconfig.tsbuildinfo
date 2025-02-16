@@ -1,0 +1,1 @@
+{"root":["./types.d.ts","./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/approuter.tsx","./src/components/createorder.tsx","./src/components/editorder.tsx","./src/components/homepage.tsx","./src/components/searchbar.tsx","./src/components/searchresults.tsx","./src/components/userorders.tsx"],"errors":true,"version":"5.7.3"}
