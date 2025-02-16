@@ -14,6 +14,12 @@ declare global {
             user: TelegramUser;
             // add other properties if needed
         };
+        onEvent: (eventType: 'backButtonClicked' | string, callback: () => void) => void;
+        offEvent: (eventType: 'backButtonClicked' | string, callback: () => void) => void;
+        BackButton: {
+            show: () => void;
+            hide: () => void;
+        };
     }
 
     interface Telegram {

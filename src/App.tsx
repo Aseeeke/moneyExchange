@@ -1,5 +1,6 @@
 import AppRouter from "./components/AppRouter.tsx";
-import {createContext, Dispatch, SetStateAction, useState} from "react";
+import {createContext, Dispatch, SetStateAction, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 interface CurrencyContextType {
     currency: string;
@@ -14,6 +15,20 @@ export const CurrencyContext = createContext<CurrencyContextType>({
 
 function App() {
     const [currency, setCurrency] = useState('');
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const handleBackButtonClick = () => {
+            navigate(-1);
+        }
+
+        window.Telegram.WebApp.onEvent('backButtonClicked', handleBackButtonClick);
+        window.Telegram.WebApp.BackButton.show();
+        return () => {
+            window.Telegram.WebApp.offEvent('backButtonClicked', handleBackButtonClick);
+        };
+    }, [navigate])
 
   return (
     <div>
