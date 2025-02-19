@@ -1,23 +1,50 @@
 import {useContext, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {GlobalContext} from "../App.tsx";
+import {GlobalContext, userOrder} from "../App.tsx";
 import {TelegramUser} from "../../types";
+import {findOrders} from "../service/orderService.ts";
 
 
 const HomePage = () => {
     const [user] = useState<TelegramUser | null>(window.Telegram.WebApp.initDataUnsafe.user);
 
-    const {setCurrency} = useContext(GlobalContext)
+    const {setCurrency, setLoader, currency, setResults} = useContext(GlobalContext)
 
     const navigate = useNavigate();
 
+    const handleFinding = async () => {
+        setLoader(true);
+        try{
+            if(currency) {
+                const result: userOrder[] = await findOrders({
+                    amount: 0,
+                    currency: currency,
+                })
+                if(result) {
+                    const sortedResult = result
+                        .filter((order): order is NonNullable<userOrder> => order !== undefined)
+                        .sort((a, b) => a.amount - b.amount);
+                    setResults(sortedResult);
+                }
+                navigate('/searchResults')
+            }
+        }
+        catch(error) {
+            console.log(error);
+            navigate('/')
+        }
+        finally {
+            setLoader(false);
+        }
+    }
+
     const handleCurrencyClickKZT = () => {
         setCurrency('KZT')
-        navigate("/searchBar")
+        handleFinding()
     }
     const handleCurrencyClickKRW = () => {
         setCurrency('KRW')
-        navigate("/searchBar")
+        handleFinding()
     }
 
     if(!user || !user.username) {

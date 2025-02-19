@@ -56,8 +56,7 @@ const SearchResults = () => {
 
             {/* Footer / Info */}
             <h3 className="text-center text-2xl mt-12 px-4 text-white drop-shadow">
-                If you are not satisfied with the search results, consider creating
-                your own order
+                If you are not satisfied with the search results, consider creating your own order
             </h3>
         </div>
     );
