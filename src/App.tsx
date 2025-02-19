@@ -70,6 +70,14 @@ function App() {
         };
     }, [navigate])
 
+    useEffect(() => {
+        if (loader) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [loader]);
+
   return (
     <div>
         <GlobalContext.Provider value={{currency, setCurrency, userKRWOrder, setUserKRWOrder, userKZTOrder, setUserKZTOrder, currentEditOrder, setCurrentEditOrder, setLoader, results, setResults}}>

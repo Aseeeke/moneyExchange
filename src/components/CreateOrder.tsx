@@ -21,6 +21,10 @@ const CreateOrder = () => {
             navigate('/ordersManagement')
             return;
         }
+        if(Number(amount) <= 0) {
+            navigate('/ordersManagement')
+            return;
+        }
         try {
             setLoader(true);
             const result = await orderPost({
